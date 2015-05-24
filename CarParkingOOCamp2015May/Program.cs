@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CarParkingOOCamp2015May
 {
@@ -17,17 +12,6 @@ namespace CarParkingOOCamp2015May
     public class Car
     {
         public string m_carId { get; private set; }
-
-        public bool Park(ParkingLot myParkingLot)
-        {
-            return myParkingLot.AddCar(this);
-        }
-
-        public Car Pick(ParkingLot myParkingLot)
-        {
-            return myParkingLot.RemoveCar(this);
-        }
-
         public Car(string carId)
         {
             this.m_carId = carId;
@@ -43,7 +27,7 @@ namespace CarParkingOOCamp2015May
             return m_carInParkingLot.ContainsKey(carId);
         }
 
-        public bool AddCar(Car myCar)
+        public bool Park(Car myCar)
         {
             if ((m_carInParkingLot.Count >= m_parkingLotSize) || Contains(myCar.m_carId))
             {
@@ -53,18 +37,15 @@ namespace CarParkingOOCamp2015May
             return true;
         }
 
-        public Car RemoveCar(Car car)
+        public Car Pick(string carId)
         {
-            if (Contains(car.m_carId))
-            {
-                var myCar = m_carInParkingLot[car.m_carId];
-                m_carInParkingLot.Remove(car.m_carId);
-                return myCar;
-            }
-            else
+            if (!Contains(carId))
             {
                 return null;
             }
+            var myCar = m_carInParkingLot[carId];
+            m_carInParkingLot.Remove(carId);
+            return myCar;
         }
 
         public ParkingLot(uint parkingLotSize)
@@ -72,6 +53,7 @@ namespace CarParkingOOCamp2015May
             this.m_parkingLotSize = parkingLotSize;
             this.m_carInParkingLot = new Dictionary<string, Car>();
         }
+
     }
 
 }
