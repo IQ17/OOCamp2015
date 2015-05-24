@@ -22,7 +22,7 @@ namespace CarParkingOOCamp2015May
     {
         private readonly uint m_parkingLotSize;
         private readonly Dictionary<string, Car> m_carInParkingLot;
-        public bool Contains(string carId)
+        private bool Contains(string carId)
         {
             return m_carInParkingLot.ContainsKey(carId);
         }

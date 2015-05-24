@@ -15,22 +15,21 @@ namespace UnitTestCarParkingOOCamp2015May
             var carId = "1";
             var myCar = new Car(carId);
 
-            myParkingLot.Park(myCar);
-            Assert.IsTrue(myParkingLot.Contains(carId));
+           Assert.IsTrue(myParkingLot.Park(myCar));   
         }
-
-        [TestMethod]
-        public void Should_Be_Fail_When_Parking_The_Same_Car_Twice()
-        {
-            uint parkingLotSize = 20;
-            var myParkingLot = new ParkingLot(parkingLotSize);
-
-            var carId = "1";
-            var myCar = new Car(carId);
-
-            Assert.IsTrue(myParkingLot.Park(myCar));
-            Assert.IsFalse(myParkingLot.Park(myCar));
-        }
+//
+//        [TestMethod]
+//        public void Should_Be_Fail_When_Parking_The_Same_Car_Twice()
+//        {
+//            uint parkingLotSize = 20;
+//            var myParkingLot = new ParkingLot(parkingLotSize);
+//
+//            var carId = "1";
+//            var myCar = new Car(carId);
+//
+//            Assert.IsTrue(myParkingLot.Park(myCar));
+//            Assert.IsFalse(myParkingLot.Park(myCar));
+//        }
 
         [TestMethod]
         public void Should_Be_Fail_When_ParkingLot_Is_Full()
