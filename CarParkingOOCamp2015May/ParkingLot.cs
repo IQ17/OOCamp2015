@@ -18,14 +18,14 @@ namespace CarParkingOOCamp2015May
             return m_carInParkingLot.ContainsKey(carId);
         }
 
-        public bool Park(Car myCar)
+        public string Park(Car myCar)
         {
             if ((m_carInParkingLot.Count >= m_parkingLotSize) || Contains(myCar.m_carId))
             {
-                return false;
+                return null;
             }
             m_carInParkingLot.Add(myCar.m_carId, myCar);
-            return true;
+            return myCar.m_carId;
         }
 
         public Car Pick(string carId)

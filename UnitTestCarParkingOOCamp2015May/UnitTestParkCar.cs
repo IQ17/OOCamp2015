@@ -10,11 +10,10 @@ namespace UnitTestCarParkingOOCamp2015May
         {
             uint parkingLotSize = 20;
             var myParkingLot = new ParkingLot(parkingLotSize);
-
             var carId = "1";
             var myCar = new Car(carId);
 
-           Assert.True(myParkingLot.Park(myCar));   
+            Assert.Equal(carId, myParkingLot.Park(myCar));   
         }
 
         [Fact]
@@ -22,15 +21,14 @@ namespace UnitTestCarParkingOOCamp2015May
         {
             uint parkingLotSize = 1;
             var myParkingLot = new ParkingLot(parkingLotSize);
-
             var carId = "1";
             var myCar = new Car(carId);
-
             var carId2 = "2";
             var myCar2 = new Car(carId2);
 
-            Assert.True(myParkingLot.Park(myCar));
-            Assert.False(myParkingLot.Park(myCar2));
+            Assert.Equal(carId, myParkingLot.Park(myCar));
+            Assert.Null(myParkingLot.Park(myCar2));
         }
+
     }
 }

@@ -16,7 +16,8 @@ namespace UnitTestCarParkingOOCamp2015May
 
             myParkingLot.Park(myCar);
 
-            Assert.Equal(myParkingLot.Pick(carId).m_carId, carId);
+            Assert.Same(myCar, myParkingLot.Pick(carId)) ;
+            Assert.Null(myParkingLot.Pick(carId));
         }
 
         [Fact]
@@ -24,15 +25,13 @@ namespace UnitTestCarParkingOOCamp2015May
         {
             uint parkingLotSize = 20;
             var myParkingLot = new ParkingLot(parkingLotSize);
-
             var carId = "1";
             var myCar = new Car(carId);
-            myParkingLot.Park(myCar);
 
-            var carId2 = "2";
-            var myCar2 = new Car(carId2);
-
-            Assert.Null(myParkingLot.Pick(myCar2.m_carId));
+            string ticket = myParkingLot.Park(myCar);
+            myParkingLot.Pick(ticket);
+            
+            Assert.Null(myParkingLot.Pick(ticket));
         }
 
     }
