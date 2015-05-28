@@ -42,7 +42,7 @@ namespace UnitTestCarParkingOOCamp2015May
         }
 
         [Fact]
-        public void Should_Boy_Park_Car_In_Second_ParkingLot_When_First_ParkingLot_Is_Full()
+        public void Boy_Should_Park_Car_In_Second_ParkingLot_When_First_ParkingLot_Is_Full()
         {
 
             uint parkingLotSize = 1;
