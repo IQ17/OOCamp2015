@@ -6,12 +6,11 @@ namespace UnitTestCarParkingOOCamp2015May
     public class UnitTestParkingLot
     {
         [Fact]
-        public void Should_Park_Car_In_ParkingLot_With_Place_Successfully()
+        public void Should_Park_Car_In_ParkingLot_With_Space_Successfully()
         {
             var aParkingLotWithPlace = new ParkingLot(size:20);
-            var myCar = new Car(carId:"1");
 
-            var carIdInTicket = aParkingLotWithPlace.Park(myCar);
+            var carIdInTicket = aParkingLotWithPlace.Park(new Car(carId:"1"));
 
             Assert.Equal("1", carIdInTicket);   
         }
@@ -31,21 +30,20 @@ namespace UnitTestCarParkingOOCamp2015May
         [Fact]
         public void Should_Pick_Correct_Car_In_ParkingLot_When_There_Are_Multiple_Cars()
         {
-            var myParkingLot = new ParkingLot(size:20);
+            var aParkingLotWithSpace = new ParkingLot(size:20);
             var myCar = new Car(carId:"1");
-            var carIdInTicket = myParkingLot.Park(myCar);
-            myParkingLot.Park(new Car(carId:"2"));
+            aParkingLotWithSpace.Park(myCar);
+            aParkingLotWithSpace.Park(new Car(carId:"2"));
 
-            Assert.Same(myCar, myParkingLot.Pick(carIdInTicket));
+            Assert.Same(myCar, aParkingLotWithSpace.Pick("1"));
         }
 
         [Fact]
-        public void Should_Not_Be_Able_To_Pick_Car_Which_Has_Been_Picked()
+        public void Should_Not_Be_Able_To_Pick_Car_That_Has_Been_Picked()
         {
             var myParkingLot = new ParkingLot(size:20);
-            var myCar = new Car(carId:"1");
+            string carIdInTicket = myParkingLot.Park(new Car(carId:"1"));
 
-            string carIdInTicket = myParkingLot.Park(myCar);
             myParkingLot.Pick(carIdInTicket);
 
             Assert.Null(myParkingLot.Pick(carIdInTicket));
