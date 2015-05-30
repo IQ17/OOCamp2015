@@ -42,7 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Boy.cs" />
+    <Compile Include="SeniorParkingBoy.cs" />
+    <Compile Include="JuniorParkingBoy.cs" />
     <Compile Include="Car.cs" />
     <Compile Include="ParkingLot.cs" />
     <Compile Include="Program.cs" />

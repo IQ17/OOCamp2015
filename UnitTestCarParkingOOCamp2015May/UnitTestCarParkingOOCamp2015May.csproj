@@ -62,11 +62,10 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTestParkingBoyParkCar.cs" />
-    <Compile Include="UnitTestParkingBoyPickCar.cs" />
-    <Compile Include="UnitTestPickCar.cs" />
-    <Compile Include="UnitTestParkCar.cs" />
+    <Compile Include="UnitTestJuniorParkingBoy.cs" />
+    <Compile Include="UnitTestParkingLot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTestSeniorParkingBoy.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CarParkingOOCamp2015May\CarParkingOOCamp2015May.csproj">

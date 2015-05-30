@@ -2,11 +2,11 @@
 {
     public class Car
     {
-        public Car(string mCarId)
+        public Car(string carId)
         {
-            m_carId = mCarId;
+            CarId = carId;
         }
 
-        public string m_carId { get; private set; }
+        public string CarId { get; private set; }
     }
 }

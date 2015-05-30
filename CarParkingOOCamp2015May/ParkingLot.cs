@@ -4,39 +4,45 @@ namespace CarParkingOOCamp2015May
 {
     public class ParkingLot
     {
-        private readonly uint m_parkingLotSize;
-        private readonly Dictionary<string, Car> m_carInParkingLot;
+        private readonly uint parkingLotSize;
+        private readonly Dictionary<string, Car> carsInParkingLot;
 
-        public ParkingLot(uint mParkingLotSize)
+        public ParkingLot(uint size)
         {
-            m_parkingLotSize = mParkingLotSize;
-            m_carInParkingLot = new Dictionary<string, Car>();
+            parkingLotSize = size;
+            carsInParkingLot = new Dictionary<string, Car>();
         }
 
-        private bool Contains(string carId)
+        private bool Contains(string ticket)
         {
-            return m_carInParkingLot.ContainsKey(carId);
+            return carsInParkingLot.ContainsKey(ticket);
         }
 
         public string Park(Car myCar)
         {
-            if ((m_carInParkingLot.Count >= m_parkingLotSize) || Contains(myCar.m_carId))
+            var ticketTmp = myCar.CarId;
+            if ((carsInParkingLot.Count >= parkingLotSize) || Contains(ticketTmp))
             {
                 return null;
             }
-            m_carInParkingLot.Add(myCar.m_carId, myCar);
-            return myCar.m_carId;
+            carsInParkingLot.Add(ticketTmp, myCar);
+            return ticketTmp;
         }
 
-        public Car Pick(string carId)
+        public Car Pick(string ticket)
         {
-            if (!Contains(carId))
+            if (!Contains(ticket))
             {
                 return null;
             }
-            var myCar = m_carInParkingLot[carId];
-            m_carInParkingLot.Remove(carId);
+            var myCar = carsInParkingLot[ticket];
+            carsInParkingLot.Remove(ticket);
             return myCar;
+        }
+
+        public long AvailableSpace()
+        {
+            return parkingLotSize - carsInParkingLot.Count;
         }
     }
 }
