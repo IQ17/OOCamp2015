@@ -90,6 +90,21 @@ namespace UnitTestCarParkingOOCamp2015May
 
             Assert.Same(myCar, aParkingLotWithMoreSpace.Pick(ticket: carIdInTicket));
         }
+
+        [Fact]
+        public void Should_Park_Car_In_Order_When_All_ParkingLots_Have_The_Same_Available_Space()
+        {
+            var parkingLot1 = new ParkingLot(size: 1);
+            var parkingLot2 = new ParkingLot(size: 1);
+            var srBoy = new SeniorParkingBoy();
+            srBoy.Manage(parkingLot1);
+            srBoy.Manage(parkingLot2);
+            var myCar = new Car(carId: "1");
+
+            srBoy.Park(myCar);
+
+            Assert.Same(myCar, parkingLot1.Pick(ticket:"1"));
+        }
     }
 
 }
