@@ -21,9 +21,9 @@ namespace UnitTestCarParkingOOCamp2015May
             var aFullParkingLot = new ParkingLot(size:1);
             aFullParkingLot.Park(new Car(carId: "1"));
 
-            var ticket = aFullParkingLot.Park(new Car(carId: "2"));
+            var inValidTicket = aFullParkingLot.Park(new Car(carId: "2"));
 
-            Assert.Null(ticket);
+            Assert.Null(inValidTicket);
 
         }
 
@@ -35,18 +35,18 @@ namespace UnitTestCarParkingOOCamp2015May
             aParkingLotWithSpace.Park(myCar);
             aParkingLotWithSpace.Park(new Car(carId:"2"));
 
-            Assert.Same(myCar, aParkingLotWithSpace.Pick("1"));
+            Assert.Same(myCar, aParkingLotWithSpace.Pick(ticket:"1"));
         }
 
         [Fact]
         public void Should_Not_Be_Able_To_Pick_Car_That_Has_Been_Picked()
         {
             var myParkingLot = new ParkingLot(size:20);
-            string carIdInTicket = myParkingLot.Park(new Car(carId:"1"));
+            myParkingLot.Park(new Car(carId:"1"));
 
-            myParkingLot.Pick(carIdInTicket);
+            myParkingLot.Pick(ticket:"1");
 
-            Assert.Null(myParkingLot.Pick(carIdInTicket));
+            Assert.Null(myParkingLot.Pick(ticket:"1"));
         }
     }
 }
