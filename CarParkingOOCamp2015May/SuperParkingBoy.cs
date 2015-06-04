@@ -3,13 +3,13 @@ using System.Linq;
 
 namespace CarParkingOOCamp2015May
 {
-    public class SeniorParkingBoy
+    public class SuperParkingBoy
     {
         private readonly List<ParkingLot> parkingLotsList;
 
-        public SeniorParkingBoy()
+        public SuperParkingBoy(List<ParkingLot> parkingLotsList)
         {
-            parkingLotsList = new List<ParkingLot>();
+            this.parkingLotsList = parkingLotsList;
         }
 
         public string Park(Car aCar)
@@ -19,21 +19,16 @@ namespace CarParkingOOCamp2015May
                 return null;
             }
 
-            var pLotWithMaxSpace = parkingLotsList[0];
+            var pLotWithHighestVacancyRate = parkingLotsList[0];
             foreach (var pLot in parkingLotsList) 
             {
-                if (pLot.AvailableSpace() > pLotWithMaxSpace.AvailableSpace())
+                if (pLot.VacancyRate() > pLotWithHighestVacancyRate.VacancyRate())
                 {
-                    pLotWithMaxSpace = pLot;
+                    pLotWithHighestVacancyRate = pLot;
                 }
             }
 
-            return pLotWithMaxSpace.Park(aCar);
-        }
-
-        public void Manage(ParkingLot aParkingLot)
-        {
-            parkingLotsList.Add(aParkingLot);
+            return pLotWithHighestVacancyRate.Park(aCar);
         }
 
         public Car Pick(string ticket)

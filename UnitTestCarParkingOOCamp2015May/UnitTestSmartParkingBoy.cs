@@ -1,37 +1,37 @@
-﻿using CarParkingOOCamp2015May;
+﻿using System.Collections.Generic;
+using CarParkingOOCamp2015May;
 using Xunit;
 
 namespace UnitTestCarParkingOOCamp2015May
 {
-    public class UnitTestSeniorParkingBoy
+    public class UnitTestSmartParkingBoy
     {
         [Fact]
         public void Should_Not_Be_Able_To_Park_Car_When_No_ParkingLot()
         {
-            var srBoy = new SeniorParkingBoy();
+            var smartBoy = new SmartParkingBoy(new List<ParkingLot>());
 
-            Assert.Null(srBoy.Park(new Car(carId: "1")));
+            Assert.Null(smartBoy.Park(new Car(carId: "1")));
         }
 
         [Fact]
         public void Should_Not_Be_Able_To_Pick_Car_When_No_ParkingLot()
         {
             var aParkingLotWithSpace = new ParkingLot(size:20);
-            var srBoy = new SeniorParkingBoy();
             aParkingLotWithSpace.Park(new Car(carId: "1"));
+            var smartBoy = new SmartParkingBoy(new List<ParkingLot>());
 
-            Assert.Null(srBoy.Pick("1"));
+            Assert.Null(smartBoy.Pick("1"));
         }
 
         [Fact]
         public void Should_Park_Car_Successfully_When_There_is_One_ParkingLot_With_Space()
         {
             var aParkingLotWithSpace = new ParkingLot(size: 20);
-            var srBoy = new SeniorParkingBoy();
-            srBoy.Manage(aParkingLotWithSpace);
+            var smartBoy = new SmartParkingBoy(new List<ParkingLot> {aParkingLotWithSpace});
             var myCar = new Car(carId: "1");
 
-            srBoy.Park(myCar);
+            smartBoy.Park(myCar);
 
             Assert.Same(myCar, aParkingLotWithSpace.Pick("1"));
         }
@@ -41,23 +41,21 @@ namespace UnitTestCarParkingOOCamp2015May
         {
             var aFullParkingLot = new ParkingLot(size: 1);
             aFullParkingLot.Park(new Car(carId: "1"));
-            var srBoy = new SeniorParkingBoy();
-            srBoy.Manage(aFullParkingLot);
+            var smartBoy = new SmartParkingBoy(new List<ParkingLot>{aFullParkingLot});
 
-            Assert.Null(srBoy.Park(new Car(carId: "2")));
+            Assert.Null(smartBoy.Park(new Car(carId: "2")));
         }
 
         [Fact]
         public void Should_Pick_The_Car_That_I_Parked_In_ParkingLot_Successfully()
         {
             var aParkingLotWithSpace = new ParkingLot(size: 20);
-            var srBoy = new SeniorParkingBoy();
-            srBoy.Manage(aParkingLotWithSpace);
+            var smartBoy = new SmartParkingBoy(new List<ParkingLot>{aParkingLotWithSpace});
 
             var myCar = new Car(carId: "1");
-            string carIdInTicket = aParkingLotWithSpace.Park(myCar);
+            aParkingLotWithSpace.Park(myCar);
 
-            Assert.Same(myCar, srBoy.Pick(carIdInTicket));
+            Assert.Same(myCar, smartBoy.Pick(ticket:"1"));
         }
 
         [Fact]
@@ -66,14 +64,12 @@ namespace UnitTestCarParkingOOCamp2015May
             var aFullParkingLot = new ParkingLot(size: 1);
             aFullParkingLot.Park(new Car(carId: "1"));
             var aParkingLotWithSpace = new ParkingLot(size: 1);
-            var srBoy = new SeniorParkingBoy();
-            srBoy.Manage(aFullParkingLot);
-            srBoy.Manage(aParkingLotWithSpace);
+            var smartBoy = new SmartParkingBoy(new List<ParkingLot>{aFullParkingLot,aParkingLotWithSpace});
             var myCar = new Car(carId: "2");
 
-            string carIdInTicket = aParkingLotWithSpace.Park(myCar);
+            aParkingLotWithSpace.Park(myCar);
 
-            Assert.Same(myCar, srBoy.Pick(carIdInTicket));
+            Assert.Same(myCar, smartBoy.Pick(ticket:"2"));
         }
 
         [Fact]
@@ -81,29 +77,25 @@ namespace UnitTestCarParkingOOCamp2015May
         {
             var aParkingLotWithLessSpace = new ParkingLot(size: 1);
             var aParkingLotWithMoreSpace = new ParkingLot(size: 2);
-            var srBoy = new SeniorParkingBoy();
-            srBoy.Manage(aParkingLotWithLessSpace);
-            srBoy.Manage(aParkingLotWithMoreSpace);
+            var smartBoy = new SmartParkingBoy(new List<ParkingLot>{aParkingLotWithLessSpace,aParkingLotWithMoreSpace});
             var myCar = new Car(carId: "1");
 
-            string carIdInTicket = srBoy.Park(myCar);
+            smartBoy.Park(myCar);
 
-            Assert.Same(myCar, aParkingLotWithMoreSpace.Pick(ticket: carIdInTicket));
+            Assert.Same(myCar, aParkingLotWithMoreSpace.Pick(ticket: "1"));
         }
 
         [Fact]
         public void Should_Park_Car_In_Order_When_All_ParkingLots_Have_The_Same_Available_Space()
         {
-            var parkingLot1 = new ParkingLot(size: 1);
-            var parkingLot2 = new ParkingLot(size: 1);
-            var srBoy = new SeniorParkingBoy();
-            srBoy.Manage(parkingLot1);
-            srBoy.Manage(parkingLot2);
+            var aParkingLotWithOneSpace = new ParkingLot(size: 1);
+            var anotherParkingLotWithOneSpace = new ParkingLot(size: 1);
+            var smartBoy = new SmartParkingBoy(new List<ParkingLot>{aParkingLotWithOneSpace,anotherParkingLotWithOneSpace});
             var myCar = new Car(carId: "1");
 
-            srBoy.Park(myCar);
+            smartBoy.Park(myCar);
 
-            Assert.Same(myCar, parkingLot1.Pick(ticket:"1"));
+            Assert.Same(myCar, aParkingLotWithOneSpace.Pick(ticket:"1"));
         }
     }
 

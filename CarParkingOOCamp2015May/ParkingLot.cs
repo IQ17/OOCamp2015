@@ -40,9 +40,14 @@ namespace CarParkingOOCamp2015May
             return myCar;
         }
 
-        public long AvailableSpace()
+        internal long AvailableSpace()
         {
             return parkingLotSize - carsInParkingLot.Count;
+        }
+
+        internal long VacancyRate()
+        {
+            return AvailableSpace() / parkingLotSize;
         }
     }
 }

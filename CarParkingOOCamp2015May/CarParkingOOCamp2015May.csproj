@@ -42,8 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SeniorParkingBoy.cs" />
-    <Compile Include="JuniorParkingBoy.cs" />
+    <Compile Include="SuperParkingBoy.cs" />
+    <Compile Include="SmartParkingBoy.cs" />
+    <Compile Include="OrdinaryParkingBoy.cs" />
     <Compile Include="Car.cs" />
     <Compile Include="ParkingLot.cs" />
     <Compile Include="Program.cs" />
