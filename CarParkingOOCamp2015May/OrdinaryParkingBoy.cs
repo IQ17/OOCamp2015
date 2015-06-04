@@ -3,26 +3,18 @@ using System.Linq;
 
 namespace CarParkingOOCamp2015May
 {
-    public class OrdinaryParkingBoy
+    public class OrdinaryParkingBoy : ParkingBoyBase
     {
-        private readonly List<ParkingLot> parkingLotsList;
-
-        public OrdinaryParkingBoy(List<ParkingLot> parkingLotsList)
+        public OrdinaryParkingBoy(List<ParkingLot> parkingLotsList) : base(parkingLotsList)
         {
-            this.parkingLotsList = parkingLotsList;
+            ParkingLotsList = parkingLotsList;
         }
 
-        public string Park(Car aCar)
+        public override string Park(Car aCar)
         {
             return
-                parkingLotsList.Select(pLot => pLot.Park(aCar))
+                ParkingLotsList.Select(pLot => pLot.Park(aCar))
                     .FirstOrDefault(ticket => ticket != null);
-        }
-
-        public Car Pick(string ticket)
-        {
-            return parkingLotsList.Select(pLot => pLot.Pick(ticket))
-                .FirstOrDefault(car => car != null);
         }
     }
 }

@@ -1,26 +1,18 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace CarParkingOOCamp2015May
 {
-    public class SuperParkingBoy
+    public class SuperParkingBoy:ParkingBoyBase
     {
-        private readonly List<ParkingLot> parkingLotsList;
-
-        public SuperParkingBoy(List<ParkingLot> parkingLotsList)
+        public override string Park(Car aCar)
         {
-            this.parkingLotsList = parkingLotsList;
-        }
-
-        public string Park(Car aCar)
-        {
-            if (parkingLotsList.Count == 0)
+            if (ParkingLotsList.Count == 0)
             {
                 return null;
             }
 
-            var pLotWithHighestVacancyRate = parkingLotsList[0];
-            foreach (var pLot in parkingLotsList) 
+            var pLotWithHighestVacancyRate = ParkingLotsList[0];
+            foreach (var pLot in ParkingLotsList) 
             {
                 if (pLot.VacancyRate() > pLotWithHighestVacancyRate.VacancyRate())
                 {
@@ -31,10 +23,9 @@ namespace CarParkingOOCamp2015May
             return pLotWithHighestVacancyRate.Park(aCar);
         }
 
-        public Car Pick(string ticket)
+        public SuperParkingBoy(List<ParkingLot> parkingLotsList) : base(parkingLotsList)
         {
-            return parkingLotsList.Select(pLot => pLot.Pick(ticket))
-                .FirstOrDefault(car => car != null);
+            ParkingLotsList = parkingLotsList;
         }
     }
 }
