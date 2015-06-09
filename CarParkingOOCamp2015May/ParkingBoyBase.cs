@@ -18,6 +18,22 @@ namespace CarParkingOOCamp2015May
                 .FirstOrDefault(car => car != null);
         }
 
-        public abstract string Park(Car aCar);
+        protected bool HasParkingLots()
+        {
+            return (ParkingLotsList.Count != 0);
+        }
+
+        public string Park(Car aCar)
+        {
+            if (HasParkingLots())
+            {
+                var selectedPLot = SelectParkingLot(ParkingLotsList[0]);
+                return selectedPLot.Park(aCar);
+            }
+
+            return null;
+        }
+
+        public abstract ParkingLot SelectParkingLot(ParkingLot initialPLot);
     }
 }

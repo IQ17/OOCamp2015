@@ -98,7 +98,7 @@ namespace UnitTestCarParkingOOCamp2015May
                 new OrdinaryParkingBoy(new List<ParkingLot> {new ParkingLot(size: 1)});
             Manager manager = new Manager(
                 new List<ParkingLot>(),
-                new List<OrdinaryParkingBoy> {boyWithParkingLot, boyWithoutParkingLot});
+                new List<ParkingBoyBase> {boyWithParkingLot, boyWithoutParkingLot});
             Car car = new Car(carId: "1");
 
             manager.Park(car);
@@ -180,7 +180,7 @@ namespace UnitTestCarParkingOOCamp2015May
                 new SmartParkingBoy(new List<ParkingLot> {new ParkingLot(size: 1)});
             Manager manager = new Manager(
                 new List<ParkingLot>(),
-                new List<SmartParkingBoy> {boyWithParkingLot, boyWithoutParkingLot});
+                new List<ParkingBoyBase> {boyWithParkingLot, boyWithoutParkingLot});
             Car car = new Car(carId: "1");
 
             manager.Park(car);
@@ -280,7 +280,7 @@ namespace UnitTestCarParkingOOCamp2015May
                 new SuperParkingBoy(new List<ParkingLot> {new ParkingLot(size: 1)});
             Manager manager = new Manager(
                 new List<ParkingLot>(),
-                new List<SuperParkingBoy> {boyWithParkingLot, boyWithoutParkingLot});
+                new List<ParkingBoyBase> {boyWithParkingLot, boyWithoutParkingLot});
             Car car = new Car(carId: "1");
 
             manager.Park(car);

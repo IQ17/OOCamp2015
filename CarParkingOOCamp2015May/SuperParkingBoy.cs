@@ -4,23 +4,16 @@ namespace CarParkingOOCamp2015May
 {
     public class SuperParkingBoy:ParkingBoyBase
     {
-        public override string Park(Car aCar)
+        public override ParkingLot SelectParkingLot(ParkingLot pLotWithHighestVacancyRate)
         {
-            if (ParkingLotsList.Count == 0)
-            {
-                return null;
-            }
-
-            var pLotWithHighestVacancyRate = ParkingLotsList[0];
-            foreach (var pLot in ParkingLotsList) 
+            foreach (var pLot in ParkingLotsList)
             {
                 if (pLot.VacancyRate() > pLotWithHighestVacancyRate.VacancyRate())
                 {
                     pLotWithHighestVacancyRate = pLot;
                 }
             }
-
-            return pLotWithHighestVacancyRate.Park(aCar);
+            return pLotWithHighestVacancyRate;
         }
 
         public SuperParkingBoy(List<ParkingLot> parkingLotsList) : base(parkingLotsList)

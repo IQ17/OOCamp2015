@@ -4,14 +4,8 @@ namespace CarParkingOOCamp2015May
 {
     public class SmartParkingBoy : ParkingBoyBase
     {
-        public override string Park(Car aCar)
+        public override ParkingLot SelectParkingLot(ParkingLot pLotWithMaxSpace)
         {
-            if (ParkingLotsList.Count == 0)
-            {
-                return null;
-            }
-
-            var pLotWithMaxSpace = ParkingLotsList[0];
             foreach (var pLot in ParkingLotsList)
             {
                 if (pLot.AvailableSpace() > pLotWithMaxSpace.AvailableSpace())
@@ -19,8 +13,7 @@ namespace CarParkingOOCamp2015May
                     pLotWithMaxSpace = pLot;
                 }
             }
-
-            return pLotWithMaxSpace.Park(aCar);
+            return pLotWithMaxSpace;
         }
 
         public SmartParkingBoy(List<ParkingLot> parkingLotsList) : base(parkingLotsList)

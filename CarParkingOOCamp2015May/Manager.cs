@@ -6,49 +6,17 @@ namespace CarParkingOOCamp2015May
     public class Manager
     {
         private readonly List<ParkingLot> parkingLotsList;
-        private readonly List<OrdinaryParkingBoy> ordinaryBoyList;
-        private readonly List<SmartParkingBoy> smartBoyList;
-        private readonly List<SuperParkingBoy> superBoyList;
         private readonly List<ParkingBoyBase> boyList;
 
         public Manager(List<ParkingLot> parkingLots)
         {
             parkingLotsList = parkingLots;
-            ordinaryBoyList = new List<OrdinaryParkingBoy>();
-            smartBoyList = new List<SmartParkingBoy>();
-            superBoyList = new List<SuperParkingBoy>();
+            boyList = new List<ParkingBoyBase>();
         }
 
-        public Manager(List<ParkingLot> parkingLots, OrdinaryParkingBoy boy) : this(parkingLots)
+        public Manager(List<ParkingLot> parkingLots, ParkingBoyBase boy) : this(parkingLots)
         {
-            this.ordinaryBoyList.Add(boy);
-        }
-
-        public Manager(List<ParkingLot> parkingLots, List<OrdinaryParkingBoy> ordinaryParkingBoys):this(parkingLots)
-        {
-            ordinaryBoyList = ordinaryParkingBoys;
-        }
-
-        public Manager(List<ParkingLot> parkingLots, SmartParkingBoy boy):this(parkingLots)
-        {
-            this.smartBoyList.Add(boy);
-        }
-
-        public Manager(List<ParkingLot> parkingLots, List<SmartParkingBoy> smartParkingBoys) : this(parkingLots)
-        {
-            smartBoyList = smartParkingBoys;
-        }
-
-        public Manager(List<ParkingLot> parkingLots, SuperParkingBoy boy)
-            : this(parkingLots)
-        {
-            this.superBoyList.Add(boy);
-        }
-
-        public Manager(List<ParkingLot> parkingLots, List<SuperParkingBoy> superParkingBoys)
-            : this(parkingLots)
-        {
-            superBoyList = superParkingBoys;
+            this.boyList.Add(boy);
         }
 
         public Manager(List<ParkingLot> parkingLots, List<ParkingBoyBase> boys) : this(parkingLots)
@@ -58,20 +26,23 @@ namespace CarParkingOOCamp2015May
 
         public string Park(Car car)
         {
-            string ticketTmp = null;
-
-            if (boyList.Any())
+            var ticketTmp = BoyParkAttempt(car);
+            if (ticketTmp != null)
             {
-                foreach (var boy in boyList)
-                {
-                    ticketTmp = boy.Park(car);
-                    if (ticketTmp != null)
-                    {
-                        return ticketTmp;
-                    }
-                }
+                return ticketTmp;
             }
 
+            ticketTmp = ParkingLotParkAttempt(car);
+            if (ticketTmp != null)
+            {
+                return ticketTmp;
+            }
+
+            return null;
+        }
+
+        private string ParkingLotParkAttempt(Car car)
+        {
             if (parkingLotsList.Any())
             {
                 var pLotWithMaxSpace = parkingLotsList[0];
@@ -82,100 +53,68 @@ namespace CarParkingOOCamp2015May
                         pLotWithMaxSpace = pLot;
                     }
                 }
-                ticketTmp = pLotWithMaxSpace.Park(car);
-                if (ticketTmp != null)
-                {
-                    return ticketTmp;
-                }
+                return pLotWithMaxSpace.Park(car);
             }
+            return null;
+        }
 
-            if (ordinaryBoyList.Any())
+        private string BoyParkAttempt(Car car)
+        {
+            if (boyList.Any())
             {
-                foreach (var ordinaryBoy in ordinaryBoyList)
+                foreach (var boy in boyList)
                 {
-                    ticketTmp = ordinaryBoy.Park(car);
+                    var ticketTmp = boy.Park(car);
                     if (ticketTmp != null)
                     {
                         return ticketTmp;
                     }
                 }
             }
-            
-            if(smartBoyList.Any())
-            {
-                foreach (var smartBoy in smartBoyList)
-                {
-                    ticketTmp = smartBoy.Park(car);
-                    if (ticketTmp != null)
-                    {
-                        return ticketTmp;
-                    }
-                }
-            }
-            
-            if (superBoyList.Any())
-            {
-                foreach (var superBoy in superBoyList)
-                {
-                    ticketTmp = superBoy.Park(car);
-                    if (ticketTmp != null)
-                    {
-                        return ticketTmp;
-                    }
-                }
-            }
-            return ticketTmp;
+            return null;
         }
 
         public Car Pick(string ticket)
         {
-            Car carTmp = null;
-
-            foreach (var boy in boyList)
+            Car carTmp = BoyPickAttempt(ticket);
+            if (carTmp != null)
             {
-                carTmp = boy.Pick(ticket);
-                if (carTmp != null)
-                {
-                    return carTmp;
-                }
+                return carTmp;
             }
 
-            foreach (var ordinaryParkingBoy in ordinaryBoyList)
+            carTmp = ParkingLotPickAttempt(ticket);
+            if (carTmp != null)
             {
-                carTmp = ordinaryParkingBoy.Pick(ticket);
-                if (carTmp != null)
-                {
-                    return carTmp;
-                }
+                return carTmp;
             }
 
-            foreach (var smartParkingBoy in smartBoyList)
-            {
-                carTmp = smartParkingBoy.Pick(ticket);
-                if (carTmp != null)
-                {
-                    return carTmp;
-                }
-            }
+            return null;
+        }
 
-            foreach (var superParkingBoy in superBoyList)
-            {
-                carTmp = superParkingBoy.Pick(ticket);
-                if (carTmp != null)
-                {
-                    return carTmp;
-                }
-            }
-
+        private Car ParkingLotPickAttempt(string ticket)
+        {
             foreach (var pLot in parkingLotsList)
             {
-                carTmp = pLot.Pick(ticket);
+                var carTmp = pLot.Pick(ticket);
                 if (carTmp != null)
                 {
                     return carTmp;
                 }
             }
-            return carTmp;
+            return null;
+        }
+
+        private Car BoyPickAttempt(string ticket)
+        {
+            foreach (var boy in boyList)
+            {
+                var carTmp = boy.Pick(ticket);
+                if (carTmp != null)
+                {
+                    return carTmp;
+                }
+            }
+            return null;
         }
     }
 }

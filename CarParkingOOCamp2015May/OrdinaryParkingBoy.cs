@@ -9,20 +9,18 @@ namespace CarParkingOOCamp2015May
         {
             ParkingLotsList = parkingLotsList;
         }
-
-        public override string Park(Car aCar)
+        
+        public override ParkingLot SelectParkingLot(ParkingLot parkingLotWithSpace)
         {
-            if (ParkingLotsList.Count != 0)
+            foreach (var pLot in ParkingLotsList)
             {
-                foreach (var pLot in ParkingLotsList)
+                if (pLot.AvailableSpace() > 0)
                 {
-                    if (pLot.AvailableSpace() > 0)
-                    {
-                        return pLot.Park(aCar);
-                    }
+                    parkingLotWithSpace = pLot;
+                    break;
                 }
             }
-            return null;
+            return parkingLotWithSpace;
         }
     }
 }
