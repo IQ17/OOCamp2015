@@ -12,9 +12,17 @@ namespace CarParkingOOCamp2015May
 
         public override string Park(Car aCar)
         {
-            return
-                ParkingLotsList.Select(pLot => pLot.Park(aCar))
-                    .FirstOrDefault(ticket => ticket != null);
+            if (ParkingLotsList.Count != 0)
+            {
+                foreach (var pLot in ParkingLotsList)
+                {
+                    if (pLot.AvailableSpace() > 0)
+                    {
+                        return pLot.Park(aCar);
+                    }
+                }
+            }
+            return null;
         }
     }
 }

@@ -47,7 +47,7 @@ namespace CarParkingOOCamp2015May
 
         internal long VacancyRate()
         {
-            return AvailableSpace() / parkingLotSize;
+            return parkingLotSize==0 ? 0 : (AvailableSpace() / parkingLotSize);
         }
     }
 }

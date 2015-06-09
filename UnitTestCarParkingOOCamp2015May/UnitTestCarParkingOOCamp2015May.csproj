@@ -50,6 +50,7 @@
     <Compile Include="UnitTestOrdinaryParkingBoy.cs" />
     <Compile Include="UnitTestParkingLot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTestManager.cs" />
     <Compile Include="UnitTestSuperParkingBoy.cs" />
     <Compile Include="UnitTestSmartParkingBoy.cs" />
   </ItemGroup>
