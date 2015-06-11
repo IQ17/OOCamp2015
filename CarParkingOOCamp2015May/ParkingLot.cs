@@ -4,12 +4,12 @@ namespace CarParkingOOCamp2015May
 {
     public class ParkingLot
     {
-        private readonly uint parkingLotSize;
+        internal uint ParkingLotSize { get; set; }
         private readonly Dictionary<string, Car> carsInParkingLot;
 
         public ParkingLot(uint size)
         {
-            parkingLotSize = size;
+            ParkingLotSize = size;
             carsInParkingLot = new Dictionary<string, Car>();
         }
 
@@ -21,7 +21,7 @@ namespace CarParkingOOCamp2015May
         public string Park(Car myCar)
         {
             var ticketTmp = myCar.CarId;
-            if ((carsInParkingLot.Count >= parkingLotSize) || Contains(ticketTmp))
+            if ((carsInParkingLot.Count >= ParkingLotSize) || Contains(ticketTmp))
             {
                 return null;
             }
@@ -42,12 +42,12 @@ namespace CarParkingOOCamp2015May
 
         internal long AvailableSpace()
         {
-            return parkingLotSize - carsInParkingLot.Count;
+            return ParkingLotSize - carsInParkingLot.Count;
         }
 
         internal long VacancyRate()
         {
-            return parkingLotSize==0 ? 0 : (AvailableSpace() / parkingLotSize);
+            return ParkingLotSize==0 ? 0 : (AvailableSpace() / ParkingLotSize);
         }
     }
 }

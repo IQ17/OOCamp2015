@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CarParkingOOCamp2015May
@@ -115,6 +116,33 @@ namespace CarParkingOOCamp2015May
                 }
             }
             return null;
+        }
+
+        public string ReporForm()
+        {
+            if (!parkingLotsList.Any() && !boyList.Any())
+            {
+                return null;
+            }
+            long totalSpace = 0;
+            long totalAvailableSpace = 0;
+            string reportForm = "";
+            foreach (var PLot in parkingLotsList)
+            {
+                totalSpace += PLot.ParkingLotSize;
+                totalAvailableSpace += PLot.AvailableSpace();
+                reportForm += String.Format("\n  ParkingLot {0} {1}",
+                         PLot.AvailableSpace(), PLot.ParkingLotSize);
+            }
+
+            foreach (var boy in boyList)
+            {
+                totalSpace += boy.TotalSpace();
+                totalAvailableSpace += boy.TotalAvailableSpace();
+                reportForm += boy.ReportForm();
+            }
+
+            return String.Format("Manager {0} {1}", totalAvailableSpace, totalSpace) + reportForm;
         }
     }
 }

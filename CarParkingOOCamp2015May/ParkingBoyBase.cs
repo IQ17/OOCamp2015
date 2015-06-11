@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,5 +36,40 @@ namespace CarParkingOOCamp2015May
         }
 
         public abstract ParkingLot SelectParkingLot(ParkingLot initialPLot);
+
+        public long TotalAvailableSpace()
+        {
+            long totalAvailableSpace = 0;
+            foreach (var PLot in ParkingLotsList)
+            {
+                totalAvailableSpace += PLot.AvailableSpace();
+            }
+            return totalAvailableSpace;
+        }
+
+        public long TotalSpace()
+        {
+            long totalSpace = 0;
+            foreach (var PLot in ParkingLotsList)
+            {
+                totalSpace += PLot.ParkingLotSize;
+            }
+            return totalSpace;
+        }
+
+        public string ReportForm()
+        {
+            var reportForm = String.Format("\n  Boy {0} {1}", TotalAvailableSpace(), TotalSpace());
+
+            foreach (var PLot in ParkingLotsList)
+            {
+                reportForm += String.Format(
+                    "\n    ParkingLot {0} {1}",
+                    PLot.AvailableSpace(),
+                    PLot.ParkingLotSize);
+            }
+
+            return reportForm;
+        }
     }
 }
